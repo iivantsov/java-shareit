@@ -1,7 +1,19 @@
 package ru.practicum.shareit.booking.dto;
 
-/**
- * TODO Sprint add-bookings.
- */
+import ru.practicum.shareit.item.Item;
+import ru.practicum.shareit.user.model.User;
+
+import jakarta.validation.constraints.NotNull;
+
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookingDto {
+    @NotNull
+    private Item item;
+    @NotNull
+    private User booker;
 }
