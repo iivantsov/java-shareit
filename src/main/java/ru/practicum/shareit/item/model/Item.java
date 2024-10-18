@@ -1,6 +1,5 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.model;
 
-import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.request.ItemRequest;
 
 import lombok.AccessLevel;
@@ -17,7 +16,7 @@ public class Item {
      * Booking availability status
      */
     Boolean available;
-    User owner;
+    Long owner;
     /**
      * Link to another User's Item Request (if it was created)
      */

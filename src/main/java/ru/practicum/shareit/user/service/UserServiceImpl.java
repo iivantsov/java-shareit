@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void validateUserPresence(long userId) {
+        userRepository.getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
+    }
+
+    @Override
     public User updateUser(Long userId, UserDto userDto) {
         return userRepository.updateUser(userId, userDto);
     }
