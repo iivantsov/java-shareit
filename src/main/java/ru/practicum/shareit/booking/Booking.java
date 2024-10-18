@@ -2,7 +2,7 @@ package ru.practicum.shareit.booking;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.shareit.item.Item;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import lombok.Data;

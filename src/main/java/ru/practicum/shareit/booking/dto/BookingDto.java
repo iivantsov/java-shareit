@@ -1,6 +1,6 @@
 package ru.practicum.shareit.booking.dto;
 
-import ru.practicum.shareit.item.Item;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import jakarta.validation.constraints.NotNull;
