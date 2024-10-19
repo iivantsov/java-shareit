@@ -23,15 +23,15 @@ public class ItemController {
         return itemService.addItem(userId, itemDto);
     }
 
-    @PatchMapping("/{item-id}")
+    @PatchMapping("/{itemId}")
     Item updateItem(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
-                    @PathVariable("item-id") long itemId,
+                    @PathVariable long itemId,
                     @RequestBody ItemDto itemDto) {
         return itemService.updateItem(userId, itemId, itemDto);
     }
 
-    @GetMapping("/{item-id}")
-    Item getItem(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId, @PathVariable("item-id") long itemId) {
+    @GetMapping("/{itemId}")
+    Item getItem(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId, @PathVariable long itemId) {
         return itemService.getItem(userId, itemId);
     }
 
