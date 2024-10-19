@@ -1,18 +1,13 @@
 package ru.practicum.shareit.user.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserDto {
-    @NotNull
+public class UserResponseDto {
+    long id;
     String name;
-    @NotNull
-    @Email
     String email;
 }

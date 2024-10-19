@@ -3,7 +3,7 @@ package ru.practicum.shareit.user.repository;
 import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.NotValidException;
-import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserRequestDto;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.Map;
@@ -36,13 +36,13 @@ public class UserRepositoryImplRam implements UserRepository {
     }
 
     @Override
-    public User updateUser(Long userId, UserDto userDto) {
+    public User updateUser(Long userId, UserRequestDto userRequestDto) {
         User user = getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
-        String name = userDto.getName();
+        String name = userRequestDto.getName();
         if (name != null) {
             user.setName(name);
         }
-        String email = userDto.getEmail();
+        String email = userRequestDto.getEmail();
         if (email != null) {
             validateEmail(email);
             checkEmailConflict(email);

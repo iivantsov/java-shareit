@@ -2,8 +2,9 @@ package ru.practicum.shareit.user.service;
 
 import ru.practicum.shareit.exception.NotFoundException;
 
+import ru.practicum.shareit.user.dto.UserRequestDto;
+import ru.practicum.shareit.user.dto.UserResponseDto;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -18,14 +19,16 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public User createUser(UserDto userDto) {
-        User user = userMapper.map(userDto);
-        return userRepository.createUser(user);
+    public UserResponseDto createUser(UserRequestDto userRequestDto) {
+        User mappedUser = userMapper.map(userRequestDto);
+        User user = userRepository.createUser(mappedUser);
+        return userMapper.map(user);
     }
 
     @Override
-    public User getUser(Long userId) {
-        return userRepository.getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
+    public UserResponseDto getUser(Long userId) {
+        User user = userRepository.getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
+        return userMapper.map(user);
     }
 
     @Override
@@ -34,8 +37,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long userId, UserDto userDto) {
-        return userRepository.updateUser(userId, userDto);
+    public UserResponseDto updateUser(Long userId, UserRequestDto userRequestDto) {
+        User user = userRepository.updateUser(userId, userRequestDto);
+        return userMapper.map(user);
     }
 
     @Override
