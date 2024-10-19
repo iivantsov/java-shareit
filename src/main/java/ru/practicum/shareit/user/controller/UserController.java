@@ -1,7 +1,8 @@
 package ru.practicum.shareit.user.controller;
 
+import ru.practicum.shareit.user.dto.UserRequestDto;
+import ru.practicum.shareit.user.dto.UserResponseDto;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.service.UserService;
 
 import jakarta.validation.Valid;
@@ -17,18 +18,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserDto userDto) {
-        return userService.createUser(userDto);
+    UserResponseDto createUser(@RequestBody @Valid UserRequestDto userRequestDto) {
+        return userService.createUser(userRequestDto);
     }
 
     @GetMapping("/{userId}")
-    User getUser(@PathVariable Long userId) {
+    UserResponseDto getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
     }
 
     @PatchMapping("/{userId}")
-    User updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
-        return userService.updateUser(userId, userDto);
+    UserResponseDto updateUser(@PathVariable Long userId, @RequestBody UserRequestDto userRequestDto) {
+        return userService.updateUser(userId, userRequestDto);
     }
 
     @DeleteMapping("/{userId}")

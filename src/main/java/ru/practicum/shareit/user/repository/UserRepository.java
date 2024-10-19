@@ -1,6 +1,6 @@
 package ru.practicum.shareit.user.repository;
 
-import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserRequestDto;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.Optional;
@@ -11,7 +11,7 @@ public interface UserRepository {
 
     Optional<User> getUser(Long userId);
 
-    User updateUser(Long userId, UserDto userDto);
+    User updateUser(Long userId, UserRequestDto userRequestDto);
 
     void deleteUser(Long userId);
 }
