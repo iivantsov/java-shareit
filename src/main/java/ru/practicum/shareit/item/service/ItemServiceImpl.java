@@ -1,7 +1,8 @@
 package ru.practicum.shareit.item.service;
 
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemRequestDto;
+import ru.practicum.shareit.item.dto.ItemResponseDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.service.UserService;
@@ -20,37 +21,42 @@ public class ItemServiceImpl implements ItemService {
     private final ItemMapper itemMapper;
 
     @Override
-    public Item addItem(long userId, ItemDto itemDto) {
+    public ItemResponseDto addItem(long userId, ItemRequestDto itemRequestDto) {
         userService.validateUserPresence(userId);
-        Item item = itemMapper.map(itemDto);
-        item.setOwner(userId);
-        return itemRepository.addItem(item);
+        Item mappedItem = itemMapper.map(itemRequestDto);
+        mappedItem.setOwner(userId);
+        Item item = itemRepository.addItem(mappedItem);
+        return itemMapper.map(item);
     }
 
     @Override
-    public Item updateItem(long userId, long itemId, ItemDto itemDto) {
+    public ItemResponseDto updateItem(long userId, long itemId, ItemRequestDto itemRequestDto) {
         userService.validateUserPresence(userId);
-        return itemRepository.updateItem(itemId, itemDto);
+        Item item = itemRepository.updateItem(itemId, itemRequestDto);
+        return itemMapper.map(item);
     }
 
     @Override
-    public Item getItem(long userId, long itemId) {
+    public ItemResponseDto getItem(long userId, long itemId) {
         userService.validateUserPresence(userId);
-        return itemRepository.getItem(itemId).orElseThrow(() -> new NotFoundException(Item.class, itemId));
+        Item item = itemRepository.getItem(itemId).orElseThrow(() -> new NotFoundException(Item.class, itemId));
+        return itemMapper.map(item);
     }
 
     @Override
-    public Collection<Item> getAllItems(long userId) {
+    public Collection<ItemResponseDto> getAllItems(long userId) {
         userService.validateUserPresence(userId);
-        return itemRepository.getAllItems(userId);
+        Collection<Item> items = itemRepository.getAllItems(userId);
+        return itemMapper.map(items);
     }
 
     @Override
-    public Collection<Item> searchItems(long userId, String text) {
+    public Collection<ItemResponseDto> searchItems(long userId, String text) {
         if (text.isBlank()) {
             return List.of();
         }
         userService.validateUserPresence(userId);
-        return itemRepository.searchItems(text);
+        Collection<Item> items = itemRepository.searchItems(text);
+        return itemMapper.map(items);
     }
 }

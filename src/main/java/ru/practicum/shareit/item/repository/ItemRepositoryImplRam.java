@@ -1,7 +1,7 @@
 package ru.practicum.shareit.item.repository;
 
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemRequestDto;
 import ru.practicum.shareit.item.model.Item;
 
 import lombok.AllArgsConstructor;
@@ -28,18 +28,18 @@ public class ItemRepositoryImplRam implements ItemRepository {
     }
 
     @Override
-    public Item updateItem(long itemId, ItemDto itemDto) {
+    public Item updateItem(long itemId, ItemRequestDto itemRequestDto) {
         Item item = getItem(itemId).orElseThrow(() -> new NotFoundException(Item.class, itemId));
 
-        String name = itemDto.getName();
+        String name = itemRequestDto.getName();
         if (name != null) {
             item.setName(name);
         }
-        String description = itemDto.getDescription();
+        String description = itemRequestDto.getDescription();
         if (description != null) {
             item.setDescription(description);
         }
-        Boolean available = itemDto.getAvailable();
+        Boolean available = itemRequestDto.getAvailable();
         if (available != null) {
             item.setAvailable(available);
         }
