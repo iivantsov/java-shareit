@@ -20,6 +20,7 @@ public class UserRepositoryImplRam implements UserRepository {
      */
     private static final String EMAIL_REGEX_VALIDATION_PATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     private final Map<Long, User> users = new HashMap<>();
+    private long nextId = 0;
 
     @Override
     public User createUser(User user) {
@@ -57,10 +58,6 @@ public class UserRepositoryImplRam implements UserRepository {
     }
 
     private long getNextId() {
-        long nextId = users.keySet().stream()
-                .mapToLong(id -> id)
-                .max()
-                .orElse(0L);
         return ++nextId;
     }
 

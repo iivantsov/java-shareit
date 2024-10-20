@@ -2,7 +2,6 @@ package ru.practicum.shareit.user.controller;
 
 import ru.practicum.shareit.user.dto.UserRequestDto;
 import ru.practicum.shareit.user.dto.UserResponseDto;
-import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
 import jakarta.validation.Valid;
