@@ -41,6 +41,7 @@ public class UserRepositoryImplRam implements UserRepository {
         User user = getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
         String name = userRequestDto.getName();
         if (name != null) {
+            validateName(name);
             user.setName(name);
         }
         String email = userRequestDto.getEmail();
@@ -62,8 +63,14 @@ public class UserRepositoryImplRam implements UserRepository {
     }
 
     private void validateEmail(String email) {
-        if (!Pattern.compile(EMAIL_REGEX_VALIDATION_PATTERN).matcher(email).matches()) {
-            throw new NotValidException("user email " + email + " is not valid");
+        if (email.isEmpty() || !Pattern.compile(EMAIL_REGEX_VALIDATION_PATTERN).matcher(email).matches()) {
+            throw new NotValidException(User.class, "email");
+        }
+    }
+
+    private void validateName(String name) {
+        if (name.isBlank()) {
+            throw new NotValidException(User.class, "name");
         }
     }
 

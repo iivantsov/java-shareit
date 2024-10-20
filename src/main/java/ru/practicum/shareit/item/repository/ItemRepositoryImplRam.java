@@ -30,11 +30,11 @@ public class ItemRepositoryImplRam implements ItemRepository {
         Item item = getItem(itemId).orElseThrow(() -> new NotFoundException(Item.class, itemId));
 
         String name = itemRequestDto.getName();
-        if (name != null) {
+        if (name != null && !name.isBlank()) {
             item.setName(name);
         }
         String description = itemRequestDto.getDescription();
-        if (description != null) {
+        if (description != null && !description.isBlank()) {
             item.setDescription(description);
         }
         Boolean available = itemRequestDto.getAvailable();

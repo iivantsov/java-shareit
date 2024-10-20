@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 public class ItemRequestDto {
     @NotBlank
     String name;
-    @NotNull
+    @NotBlank
     String description;
     @NotNull
     Boolean available;
