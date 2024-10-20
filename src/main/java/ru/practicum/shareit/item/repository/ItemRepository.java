@@ -16,5 +16,5 @@ public interface ItemRepository {
 
     Collection<Item> getAllItems(long userId);
 
-    public Collection<Item> searchItems(String text);
+    Collection<Item> searchItems(String text);
 }
