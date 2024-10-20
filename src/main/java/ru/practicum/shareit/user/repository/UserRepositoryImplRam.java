@@ -9,16 +9,11 @@ import ru.practicum.shareit.user.model.User;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryImplRam implements UserRepository {
-    /**
-     * Regular Expression by RFC 5322 for Email Validation
-     */
-    private static final String EMAIL_REGEX_VALIDATION_PATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     private final Map<Long, User> users = new HashMap<>();
     private long nextId = 0;
 
@@ -63,7 +58,7 @@ public class UserRepositoryImplRam implements UserRepository {
     }
 
     private void validateEmail(String email) {
-        if (email.isEmpty() || !Pattern.compile(EMAIL_REGEX_VALIDATION_PATTERN).matcher(email).matches()) {
+        if (email.isEmpty()) {
             throw new NotValidException(User.class, "email");
         }
     }

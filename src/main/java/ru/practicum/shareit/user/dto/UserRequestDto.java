@@ -7,13 +7,15 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import ru.practicum.shareit.api.CreateRequest;
+import ru.practicum.shareit.api.UpdateRequest;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequestDto {
-    @NotBlank
+    @NotBlank(groups = {CreateRequest.class})
     String name;
-    @NotEmpty
-    @Email
+    @NotEmpty(groups = {CreateRequest.class})
+    @Email(groups = {CreateRequest.class, UpdateRequest.class})
     String email;
 }
