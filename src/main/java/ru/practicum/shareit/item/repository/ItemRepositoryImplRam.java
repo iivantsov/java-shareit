@@ -4,20 +4,18 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.dto.ItemRequestDto;
 import ru.practicum.shareit.item.model.Item;
 
-import lombok.AllArgsConstructor;
-
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.function.Predicate;
 
 @Repository
-@AllArgsConstructor
 public class ItemRepositoryImplRam implements ItemRepository {
     /**
      * <K> - itemId, <V> - Item
      */
     private final Map<Long, Item> items = new HashMap<>();
+    private long nextId = 0L;
 
     @Override
     public Item addItem(Item item) {
@@ -73,10 +71,6 @@ public class ItemRepositoryImplRam implements ItemRepository {
     }
 
     private long getNextId() {
-        long nextId = items.keySet().stream()
-                .mapToLong(id -> id)
-                .max()
-                .orElse(0L);
         return ++nextId;
     }
 }
