@@ -9,8 +9,6 @@ public interface UserService {
 
     UserResponseDto getUser(Long userId);
 
-    void validateUserPresence(long userId);
-
     UserResponseDto updateUser(Long userId, UserRequestDto userRequestDto);
 
     void deleteUser(Long userId);
