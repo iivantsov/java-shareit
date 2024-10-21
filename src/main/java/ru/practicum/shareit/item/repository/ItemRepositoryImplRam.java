@@ -12,16 +12,17 @@ import java.util.function.Predicate;
 @Repository
 public class ItemRepositoryImplRam implements ItemRepository {
     /**
-     * <K> - itemId, <V> - Item
+     * <K> userId, V - List<Item>
      */
-    private final Map<Long, Item> items = new HashMap<>();
+    private final Map<Long, List<Item>> userItems = new LinkedHashMap<>();
     private long nextId = 0L;
 
     @Override
     public Item addItem(Item item) {
-        long id = getNextId();
-        item.setId(id);
-        items.put(id, item);
+        long itemId = getNextId();
+        item.setId(itemId);
+        List<Item> items = userItems.computeIfAbsent(item.getOwner(), v -> new ArrayList<>());
+        items.add(item);
         return item;
     }
 
@@ -47,14 +48,15 @@ public class ItemRepositoryImplRam implements ItemRepository {
 
     @Override
     public Optional<Item> getItem(long itemId) {
-        return Optional.ofNullable(items.get(itemId));
+        return userItems.values().stream()
+                .flatMap(List::stream)
+                .filter(item -> item.getId() == itemId)
+                .findFirst();
     }
 
     @Override
     public Collection<Item> getAllItems(long userId) {
-        return items.values().stream()
-                .filter(item -> item.getOwner() == userId)
-                .toList();
+        return userItems.get(userId);
     }
 
     @Override
@@ -65,7 +67,8 @@ public class ItemRepositoryImplRam implements ItemRepository {
                 ((item.getName().toLowerCase().contains(textL) || item.getDescription().toLowerCase().contains(textL)))
                         && item.getAvailable();
 
-        return items.values().stream()
+        return userItems.values().stream()
+                .flatMap(List::stream)
                 .filter(itemSearchFilter)
                 .toList();
     }
