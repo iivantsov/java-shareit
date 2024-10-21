@@ -15,6 +15,7 @@ public class AppExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse exceptionHandler(Exception exception) {
+        log.error("exception - {} ({})", exception.getMessage(), exception.getStackTrace()[0].toString());
         return new ExceptionResponse(exception.getMessage());
     }
 
