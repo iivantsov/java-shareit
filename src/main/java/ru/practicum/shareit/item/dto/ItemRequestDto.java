@@ -1,7 +1,6 @@
-package ru.practicum.shareit.request.dto;
+package ru.practicum.shareit.item.dto;
 
-import ru.practicum.shareit.user.model.User;
-
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
@@ -11,8 +10,10 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemRequestDto {
-    @NotNull
+    @NotBlank
+    String name;
+    @NotBlank
     String description;
     @NotNull
-    User requester;
+    Boolean available;
 }
