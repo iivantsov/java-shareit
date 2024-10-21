@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -29,11 +28,6 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto getUser(Long userId) {
         User user = userRepository.getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
         return userMapper.map(user);
-    }
-
-    @Override
-    public void validateUserPresence(long userId) {
-        userRepository.getUser(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
     }
 
     @Override
