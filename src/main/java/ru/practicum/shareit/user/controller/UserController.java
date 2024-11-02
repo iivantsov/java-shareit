@@ -2,8 +2,8 @@ package ru.practicum.shareit.user.controller;
 
 import ru.practicum.shareit.api.CreateRequest;
 import ru.practicum.shareit.api.UpdateRequest;
-import ru.practicum.shareit.user.dto.UserRequestDto;
-import ru.practicum.shareit.user.dto.UserResponseDto;
+import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserSaveDto;
 import ru.practicum.shareit.user.service.UserService;
 
 import org.springframework.validation.annotation.Validated;
@@ -19,19 +19,19 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    UserResponseDto createUser(@RequestBody @Validated(CreateRequest.class) UserRequestDto userRequestDto) {
-        return userService.createUser(userRequestDto);
+    UserDto createUser(@RequestBody @Validated(CreateRequest.class) UserSaveDto userSaveDto) {
+        return userService.createUser(userSaveDto);
     }
 
     @GetMapping("/{userId}")
-    UserResponseDto getUser(@PathVariable Long userId) {
+    UserDto getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
     }
 
     @PatchMapping("/{userId}")
-    UserResponseDto updateUser(@PathVariable Long userId,
-                               @RequestBody @Validated(UpdateRequest.class) UserRequestDto userRequestDto) {
-        return userService.updateUser(userId, userRequestDto);
+    UserDto updateUser(@PathVariable Long userId,
+                       @RequestBody @Validated(UpdateRequest.class) UserSaveDto userSaveDto) {
+        return userService.updateUser(userId, userSaveDto);
     }
 
     @DeleteMapping("/{userId}")

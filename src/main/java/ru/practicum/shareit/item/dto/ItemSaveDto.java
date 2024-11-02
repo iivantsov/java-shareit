@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ItemRequestDto {
+public class ItemSaveDto {
     @NotBlank
     String name;
     @NotBlank

@@ -2,8 +2,8 @@ package ru.practicum.shareit.user.service;
 
 import ru.practicum.shareit.exception.NotFoundException;
 
-import ru.practicum.shareit.user.dto.UserRequestDto;
-import ru.practicum.shareit.user.dto.UserResponseDto;
+import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserSaveDto;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
@@ -18,22 +18,22 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserResponseDto createUser(UserRequestDto userRequestDto) {
-        User user = userMapper.map(userRequestDto);
+    public UserDto createUser(UserSaveDto userSaveDto) {
+        User user = userMapper.map(userSaveDto);
         User savedUser = userRepository.save(user);
         return userMapper.map(savedUser);
     }
 
     @Override
-    public UserResponseDto getUser(Long userId) {
+    public UserDto getUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
         return userMapper.map(user);
     }
 
     @Override
-    public UserResponseDto updateUser(Long userId, UserRequestDto userRequestDto) {
+    public UserDto updateUser(Long userId, UserSaveDto userSaveDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
-        userMapper.updateUserFromDto(user, userRequestDto);
+        userMapper.updateUserFromDto(user, userSaveDto);
         User savedUser = userRepository.save(user);
         return userMapper.map(savedUser);
     }

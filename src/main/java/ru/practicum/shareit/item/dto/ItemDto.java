@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user.dto;
+package ru.practicum.shareit.item.dto;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -6,8 +6,9 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponseDto {
-    long id;
+public class ItemDto {
+    Long id;
     String name;
-    String email;
+    String description;
+    Boolean available;
 }

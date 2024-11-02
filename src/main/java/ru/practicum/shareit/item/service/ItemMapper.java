@@ -4,21 +4,21 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import ru.practicum.shareit.item.dto.ItemResponseDto;
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.item.dto.ItemRequestDto;
+import ru.practicum.shareit.item.dto.ItemSaveDto;
 
 import java.util.Collection;
 
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
 
-    Item map(ItemRequestDto itemRequestDto);
+    Item map(ItemSaveDto itemSaveDto);
 
-    ItemResponseDto map(Item item);
+    ItemDto map(Item item);
 
-    Collection<ItemResponseDto> map(Collection<Item> items);
+    Collection<ItemDto> map(Collection<Item> items);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateItemFromDto(@MappingTarget Item item, ItemRequestDto itemDto);
+    void updateItemFromDto(@MappingTarget Item item, ItemSaveDto itemDto);
 }
