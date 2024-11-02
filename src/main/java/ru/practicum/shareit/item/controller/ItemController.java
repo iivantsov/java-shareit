@@ -32,8 +32,8 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    ItemResponseDto getItem(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId, @PathVariable long itemId) {
-        return itemService.getItem(userId, itemId);
+    ItemResponseDto getItem(@PathVariable long itemId) {
+        return itemService.getItem(itemId);
     }
 
     @GetMapping
@@ -42,8 +42,7 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    Collection<ItemResponseDto> searchItems(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
-                                            @RequestParam String text) {
-        return itemService.searchItems(userId, text);
+    Collection<ItemResponseDto> searchItems(@RequestParam String text) {
+        return itemService.searchItems(text);
     }
 }

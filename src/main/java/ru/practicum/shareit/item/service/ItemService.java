@@ -11,9 +11,9 @@ public interface ItemService {
 
     ItemResponseDto updateItem(long userId, long itemId, ItemRequestDto itemRequestDto);
 
-    ItemResponseDto getItem(long userId, long itemId);
+    ItemResponseDto getItem(long itemId);
 
     Collection<ItemResponseDto> getAllItems(long userId);
 
-    Collection<ItemResponseDto> searchItems(long userId, String text);
+    Collection<ItemResponseDto> searchItems(String text);
 }

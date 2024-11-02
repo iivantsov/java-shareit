@@ -26,10 +26,9 @@ logging:
       springframework:
         web: info
       hibernate:
-        SQL: debug
         orm:
           jdbc.bind: trace
           jpa.JpaTransactionManager: debug
       transaction: info
       transaction.interceptor: trace
-      zalando.logbook: trace
+      zalando.logbook: trace # include hibernate.SQL logs

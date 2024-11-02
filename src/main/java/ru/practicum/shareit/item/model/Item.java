@@ -2,23 +2,44 @@ package ru.practicum.shareit.item.model;
 
 import ru.practicum.shareit.request.ItemRequest;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+import lombok.experimental.FieldDefaults;
+import ru.practicum.shareit.user.model.User;
+
+@Entity
+@Table(name = "items")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = "id")
 public class Item {
-    Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    long id;
+
+    @Column(length = 50)
     String name;
+
+    @Column(length = 300)
     String description;
+
     /**
      * Booking availability status
      */
+    @Column(name = "is_available")
     Boolean available;
-    Long owner;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    User owner;
+
     /**
      * Link to another User's Item Request (if it was created)
      */
+    @OneToOne
+    @JoinColumn(name = "request_id")
     ItemRequest request;
 }
