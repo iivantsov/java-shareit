@@ -19,6 +19,13 @@ public class AppExceptionHandler {
         return new ExceptionResponse(exception.getMessage());
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionResponse forbiddenExceptionHandler(ForbiddenException exception) {
+        log.error("forbidden exception - {} ({})", exception.getMessage(), exception.getStackTrace()[0].toString());
+        return new ExceptionResponse(exception.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<ValidationExceptionResponse> requestBodyExceptionHandler(MethodArgumentNotValidException exception) {
