@@ -12,7 +12,7 @@ import ru.practicum.shareit.api.UpdateRequest;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRequestDto {
+public class UserSaveDto {
     @NotBlank(groups = {CreateRequest.class})
     String name;
     @NotEmpty(groups = {CreateRequest.class})
