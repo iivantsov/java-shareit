@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.controller;
+package ru.practicum.shareit.api;
 
 import lombok.experimental.UtilityClass;
 

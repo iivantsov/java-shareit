@@ -2,9 +2,12 @@ package ru.practicum.shareit.item.service;
 
 import ru.practicum.shareit.exception.ForbiddenException;
 import ru.practicum.shareit.exception.NotFoundException;
+import ru.practicum.shareit.item.dto.CommentDto;
+import ru.practicum.shareit.item.dto.CommentSaveDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemSaveDto;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
@@ -21,7 +24,10 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
+
     private final ItemMapper itemMapper;
+    private final CommentMapper commentMapper;
 
     @Transactional
     @Override
@@ -31,6 +37,11 @@ public class ItemServiceImpl implements ItemService {
         item.setOwner(owner);
         Item savedItem = itemRepository.save(item);
         return itemMapper.map(savedItem);
+    }
+
+    @Override
+    public CommentDto addComment(long userId, long itemId, CommentSaveDto commentSaveDto) {
+        return null;
     }
 
     @Transactional
