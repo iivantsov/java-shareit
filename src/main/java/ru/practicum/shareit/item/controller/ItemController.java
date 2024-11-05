@@ -1,5 +1,8 @@
 package ru.practicum.shareit.item.controller;
 
+import ru.practicum.shareit.api.RequestHttpHeaders;
+import ru.practicum.shareit.item.dto.CommentDto;
+import ru.practicum.shareit.item.dto.CommentSaveDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemSaveDto;
 import ru.practicum.shareit.item.service.ItemService;
@@ -22,6 +25,13 @@ public class ItemController {
     ItemDto addItem(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
                     @RequestBody @Valid ItemSaveDto itemSaveDto) {
         return itemService.addItem(userId, itemSaveDto);
+    }
+
+    @PostMapping("/{itemId}/comment")
+    CommentDto addComment(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
+                          @PathVariable long itemId,
+                          @RequestBody @Valid CommentSaveDto commentSaveDto) {
+        return itemService.addComment(userId, itemId, commentSaveDto);
     }
 
     @PatchMapping("/{itemId}")

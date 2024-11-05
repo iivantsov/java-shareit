@@ -4,11 +4,13 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ItemDto {
+public class CommentDto {
     long id;
-    String name;
-    String description;
-    Boolean available;
+    String text;
+    String authorName;
+    LocalDateTime created;
 }
