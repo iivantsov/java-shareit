@@ -36,6 +36,13 @@ public class AppExceptionHandler {
         return response;
     }
 
+    @ExceptionHandler(NotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse notValidExceptionHandler(NotValidException exception) {
+        log.error("not valid exception - {} ({})", exception.getMessage(), exception.getStackTrace()[0].toString());
+        return new ExceptionResponse(exception.getMessage());
+    }
+
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionResponse notFoundExceptionHandler(NotFoundException exception) {

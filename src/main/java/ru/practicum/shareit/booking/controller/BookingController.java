@@ -41,15 +41,15 @@ public class BookingController {
 
     // Get all bookings with required state for current user
     @GetMapping
-    Collection<BookingDto> getAllBookings(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
-                                          @RequestParam(defaultValue = "ALL") BookingState state) {
-        return bookingService.getAllBookings(userId, state);
+    Collection<BookingDto> getAllUserBookings(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
+                                              @RequestParam(defaultValue = "ALL") BookingState state) {
+        return bookingService.getAllUserBookings(userId, state);
     }
 
     // Get all bookings with required state for items of current user
     @GetMapping("/owner")
-    Collection<BookingDto> getAllOwnersItemBookings(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
-                                                    @RequestParam(defaultValue = "ALL") BookingState state) {
-        return bookingService.getAllOwnersItemBookings(userId, state);
+    Collection<BookingDto> getAllUserItemsBookings(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId,
+                                                   @RequestParam(defaultValue = "ALL") BookingState state) {
+        return bookingService.getAllUserItemsBookings(userId, state);
     }
 }
