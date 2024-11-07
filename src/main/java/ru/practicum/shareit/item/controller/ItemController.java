@@ -1,10 +1,7 @@
 package ru.practicum.shareit.item.controller;
 
 import ru.practicum.shareit.api.RequestHttpHeaders;
-import ru.practicum.shareit.item.dto.CommentDto;
-import ru.practicum.shareit.item.dto.CommentSaveDto;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.dto.ItemSaveDto;
+import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.item.service.ItemService;
 
 import jakarta.validation.Valid;
@@ -47,8 +44,8 @@ public class ItemController {
     }
 
     @GetMapping
-    Collection<ItemDto> getAllItems(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId) {
-        return itemService.getAllItems(userId);
+    Collection<ItemDto> getAllOwnerItems(@RequestHeader(value = RequestHttpHeaders.USER_ID) long userId) {
+        return itemService.getAllOwnerItems(userId);
     }
 
     @GetMapping("/search")

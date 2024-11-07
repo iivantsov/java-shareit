@@ -39,7 +39,7 @@ public class BookingServiceImpl implements BookingService {
 
         long itemId = bookingSaveDto.getItemId();
         Item item = itemRepository.findById(itemId).orElseThrow(() -> new NotFoundException(Item.class, itemId));
-        if (!item.getAvailable()) {
+        if (!item.isAvailable()) {
             throw new NotValidException(Item.class, "is not available for booking");
         }
 
@@ -57,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
     public BookingDto manageBooking(long userId, long bookingId, boolean approved) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException(Booking.class, bookingId));
+
         if (booking.getItem().getOwner().getId() != userId) {
             throw new NotValidException(Booking.class, "can only be approved by the owner of the item");
         }
@@ -70,6 +71,7 @@ public class BookingServiceImpl implements BookingService {
     public BookingDto getBooking(long userId, long bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException(Booking.class, bookingId));
+
         if (booking.getItem().getOwner().getId() != userId && booking.getBooker().getId() != userId) {
             throw new NotValidException(Booking.class, "owner id " + booking.getItem().getOwner().getId() +
                     " or booker id " + booking.getBooker().getId() + " does not match with user id " + userId);
@@ -83,21 +85,22 @@ public class BookingServiceImpl implements BookingService {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
 
         final Collection<Booking> bookings;
+        final LocalDateTime current = LocalDateTime.now();
         switch (state) {
             case WAITING -> {
-                bookings = bookingRepository.findByBookerIdAndStatusOrderByStartDesc(userId, BookingStatus.WAITING);
+                bookings = bookingRepository.findAllByBookerIdAndStatusOrderByStartDesc(userId, BookingStatus.WAITING);
             }
             case REJECTED -> {
-                bookings = bookingRepository.findByBookerIdAndStatusOrderByStartDesc(userId, BookingStatus.REJECTED);
+                bookings = bookingRepository.findAllByBookerIdAndStatusOrderByStartDesc(userId, BookingStatus.REJECTED);
             }
             case CURRENT -> {
-                bookings = bookingRepository.findCurrentBookings(userId, LocalDateTime.now());
+                bookings = bookingRepository.findAllCurrentBookings(userId, current);
             }
             case PAST -> {
-                bookings = bookingRepository.findByBookerIdAndEndBeforeOrderByStartDesc(userId, LocalDateTime.now());
+                bookings = bookingRepository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, current);
             }
             case FUTURE -> {
-                bookings = bookingRepository.findByBookerIdAndStartAfterOrderByStartDesc(userId, LocalDateTime.now());
+                bookings = bookingRepository.findAllByBookerIdAndStartAfterOrderByStartDesc(userId, current);
             }
             case ALL -> {
                 bookings = bookingRepository.findAllByBookerIdOrderByStartDesc(userId);

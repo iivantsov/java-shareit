@@ -11,17 +11,21 @@ import java.util.Collection;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
+    Collection<Booking> findAllByItemIdAndStartAfterOrderByStartAsc(long itemId, LocalDateTime time);
+
+    Collection<Booking> findAllByItemIdInAndStartAfterOrderByStartAsc(Collection<Long> itemIds, LocalDateTime time);
+
     Collection<Booking> findAllByBookerIdOrderByStartDesc(long bookerId);
 
-    Collection<Booking> findByBookerIdAndEndBeforeOrderByStartDesc(long bookerId, LocalDateTime time);
+    Collection<Booking> findAllByBookerIdAndEndBeforeOrderByStartDesc(long bookerId, LocalDateTime time);
 
-    Collection<Booking> findByBookerIdAndStartAfterOrderByStartDesc(long bookerId, LocalDateTime time);
+    Collection<Booking> findAllByBookerIdAndStartAfterOrderByStartDesc(long bookerId, LocalDateTime time);
 
     @Query("SELECT b from Booking AS b " +
             "WHERE b.booker.id = ?1 " +
             "AND ?2 > b.start " +
             "AND ?2 < b.end")
-    Collection<Booking> findCurrentBookings(long bookerId, LocalDateTime time);
+    Collection<Booking> findAllCurrentBookings(long bookerId, LocalDateTime time);
 
-    Collection<Booking> findByBookerIdAndStatusOrderByStartDesc(long bookerId, BookingStatus status);
+    Collection<Booking> findAllByBookerIdAndStatusOrderByStartDesc(long bookerId, BookingStatus status);
 }
