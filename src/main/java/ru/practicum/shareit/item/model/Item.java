@@ -30,7 +30,7 @@ public class Item {
      * Booking availability status
      */
     @Column(name = "is_available")
-    Boolean available;
+    boolean available;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
