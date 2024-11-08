@@ -146,6 +146,10 @@ BookingState {
 5. **GET /bookings/owner?state={state}** _- Get a collection of bookings for all items of the current user 
 sorted by date from newest to oldest, 'state' parameter behave the same way as for endpoint 4_
 
+### Entity Relationship Diagram
+
+![shareit-erd.png](shareit-erd.png)
+
 ### Version history
 ### Version: 1.0
 #### Initial implementation
