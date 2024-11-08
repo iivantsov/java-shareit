@@ -1,5 +1,6 @@
 package ru.practicum.shareit.booking.dto;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -19,6 +20,6 @@ public class BookingSaveDto {
     LocalDateTime start;
 
     @NotNull
-    @FutureOrPresent
+    @Future
     LocalDateTime end;
 }
