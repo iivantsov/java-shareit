@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of = "id")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +23,12 @@ public class Comment {
     @Column(length = 300)
     String text;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "item_id")
     Item item;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "author_id")
     User author;

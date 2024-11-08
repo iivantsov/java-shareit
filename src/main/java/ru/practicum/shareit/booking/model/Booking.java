@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of = "id")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +25,12 @@ public class Booking {
     @Column(name = "end_date")
     LocalDateTime end;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "item_id")
     Item item;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "booker_id")
     User booker;
