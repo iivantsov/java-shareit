@@ -32,8 +32,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto addBooking(long userId, BookingSaveDto bookingSaveDto) {
-        if (bookingSaveDto.getStart().equals(bookingSaveDto.getEnd())) {
-            throw new NotValidException(Booking.class, "start equals end");
+        if (bookingSaveDto.getStart().equals(bookingSaveDto.getEnd()) ||
+                bookingSaveDto.getStart().isBefore(bookingSaveDto.getEnd())) {
+            throw new NotValidException(Booking.class, "start equals or before end");
         }
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
 
