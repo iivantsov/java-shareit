@@ -1,6 +1,11 @@
 package ru.practicum.shareit.item.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import ru.practicum.shareit.api.CreateRequest;
+import ru.practicum.shareit.api.UpdateRequest;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -8,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentSaveDto {
-    @NotBlank
+    @NotNull(groups = {CreateRequest.class})
+    @Size(min = 1, max = 300, groups = {CreateRequest.class, UpdateRequest.class})
     String text;
 }
