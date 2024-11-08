@@ -97,33 +97,41 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Collection<ItemDto> getAllOwnerItems(long userId) {
-        Map<Long, ItemDto> idToItemDto = itemRepo.findAllByOwnerId(userId).stream()
+        Map<Long, ItemDto> itemIdToItemDto = itemRepo
+                .findAllByOwnerId(userId)
+                .stream()
                 .map(itemMapper::map)
                 .collect(Collectors.toMap(ItemDto::getId, Function.identity()));
 
-        Collection<Booking> futureBookings =
-                bookingRepo.findAllByItemIdInAndStartAfterOrderByStartAsc(idToItemDto.keySet(), LocalDateTime.now());
+        Map<Long, List<Booking>> itemIdToFutureBookings = bookingRepo
+                .findAllByItemIdInAndStartAfterOrderByStartAsc(itemIdToItemDto.keySet(), LocalDateTime.now())
+                .stream()
+                .collect(Collectors.groupingBy(booking -> booking.getItem().getId(), Collectors.toList()));
 
-        for (ItemDto itemDto : idToItemDto.values()) {
-            Collection<LocalDateTime> futureItemBookings = futureBookings.stream()
-                    .filter(booking -> booking.getItem().getId() == itemDto.getId())
+        Map<Long, List<Comment>> itemIdToComments = commentRepo
+                .findAllByItemIdIn(itemIdToItemDto.keySet()).stream()
+                .collect(Collectors.groupingBy(comment -> comment.getItem().getId(), Collectors.toList()));
+
+        for (ItemDto itemDto : itemIdToItemDto.values()) {
+            if (!itemIdToFutureBookings.containsKey(itemDto.getId())) {
+                continue;
+            }
+            Collection<LocalDateTime> futureItemBookings = itemIdToFutureBookings.get(itemDto.getId()).stream()
                     .map(Booking::getStart)
                     .toList();
-
             LocalDateTime nextBooking = findNextBooking(futureItemBookings);
             itemDto.setNextBooking(nextBooking);
             LocalDateTime lastBooking = findLastBooking(futureItemBookings);
             itemDto.setLastBooking(lastBooking);
+
+            if (!itemIdToComments.containsKey(itemDto.getId())) {
+                continue;
+            }
+            List<Comment> comments = itemIdToComments.get(itemDto.getId());
+            itemDto.setComments(commentMapper.map(comments));
         }
 
-        Collection<Comment> comments = commentRepo.findAllByItemIdIn(idToItemDto.keySet());
-        for (Comment comment : comments) {
-            long id = comment.getItem().getId();
-            ItemDto itemDto = idToItemDto.get(id);
-            itemDto.getComments().add(commentMapper.map(comment));
-        }
-
-        return idToItemDto.values();
+        return itemIdToItemDto.values();
     }
 
     @Override
