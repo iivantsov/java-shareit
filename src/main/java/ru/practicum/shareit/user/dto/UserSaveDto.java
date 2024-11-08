@@ -1,8 +1,6 @@
 package ru.practicum.shareit.user.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -13,9 +11,12 @@ import ru.practicum.shareit.api.UpdateRequest;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserSaveDto {
-    @NotBlank(groups = {CreateRequest.class})
+    @NotNull(groups = {CreateRequest.class})
+    @Size(min = 1, max = 50, groups = {CreateRequest.class, UpdateRequest.class})
     String name;
-    @NotEmpty(groups = {CreateRequest.class})
+
+    @NotNull(groups = {CreateRequest.class})
     @Email(groups = {CreateRequest.class, UpdateRequest.class})
+    @Size(min = 1, max = 150, groups = {CreateRequest.class, UpdateRequest.class})
     String email;
 }
