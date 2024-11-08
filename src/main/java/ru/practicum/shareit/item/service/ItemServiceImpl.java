@@ -48,10 +48,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public CommentDto addComment(long userId, long itemId, CommentSaveDto commentSaveDto) {
-        Booking booking = bookingRepo.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, LocalDateTime.now())
-                .stream()
-                .filter(b -> b.getItem().getId() == itemId)
-                .findFirst()
+        Booking booking = bookingRepo
+                .findByBookerIdAndItemIdAndEndBeforeOrderByStartDesc(userId, itemId, LocalDateTime.now())
                 .orElseThrow(() -> new NotValidException(Comment.class, "cannot be posted. Please check user id " +
                         userId + " has previously booked item id " + itemId));
 
