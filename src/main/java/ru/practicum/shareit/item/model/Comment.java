@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import ru.practicum.shareit.user.model.User;
 
 import jakarta.persistence.*;
@@ -31,5 +32,6 @@ public class Comment {
     @JoinColumn(name = "author_id")
     User author;
 
-    LocalDateTime created = LocalDateTime.now();
+    @CreationTimestamp
+    LocalDateTime created;
 }
