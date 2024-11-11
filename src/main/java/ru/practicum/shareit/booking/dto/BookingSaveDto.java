@@ -1,12 +1,13 @@
 package ru.practicum.shareit.booking.dto;
 
-import jakarta.validation.constraints.Future;
+import ru.practicum.shareit.booking.validation.DateTimeStartBeforeEnd;
+
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.shareit.booking.validation.DateTimeStartBeforeEnd;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,5 @@ public class BookingSaveDto {
     Long itemId;
     @FutureOrPresent
     LocalDateTime start;
-    @Future
     LocalDateTime end;
 }
