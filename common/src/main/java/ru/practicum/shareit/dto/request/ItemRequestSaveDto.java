@@ -1,15 +1,16 @@
 package ru.practicum.shareit.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ItemRequestDto {
-    long id;
+public class ItemRequestSaveDto {
+    @NotNull
+    @Size(min = 1, max = 300)
     String description;
-    LocalDateTime created;
 }
