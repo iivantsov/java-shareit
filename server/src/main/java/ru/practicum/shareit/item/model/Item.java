@@ -1,6 +1,6 @@
 package ru.practicum.shareit.item.model;
 
-import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.request.model.ItemRequest;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +14,6 @@ import ru.practicum.shareit.user.model.User;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of = "id")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +31,7 @@ public class Item {
     @Column(name = "is_available")
     boolean available;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "owner_id")
     User owner;
