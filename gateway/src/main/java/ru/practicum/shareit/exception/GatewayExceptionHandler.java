@@ -23,12 +23,12 @@ public class GatewayExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public List<ValidationExceptionResponse> requestBodyExceptionHandler(MethodArgumentNotValidException exception) {
+    public ValidationExceptionResponse requestBodyExceptionHandler(MethodArgumentNotValidException exception) {
         List<ValidationExceptionResponse> response = exception.getBindingResult().getFieldErrors().stream()
                 .map(er -> new ValidationExceptionResponse(er.getObjectName(), er.getField(), er.getDefaultMessage()))
                 .toList();
         log.error("request body validation exception - {}", response);
-        return response;
+        return response.getFirst();
     }
 
     @ExceptionHandler(NotValidException.class)
