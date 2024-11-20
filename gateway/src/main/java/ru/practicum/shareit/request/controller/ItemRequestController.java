@@ -47,10 +47,10 @@ public class ItemRequestController {
     }
 
     /**
-     *
+     * Get requests by id
      */
     @GetMapping("/{requestId}")
-    public ResponseEntity<Object> getItemRequest(@NotNull Long requestId) {
+    public ResponseEntity<Object> getItemRequest(@PathVariable @NotNull Long requestId) {
         return itemRequestClient.getItemRequest(requestId);
     }
 }

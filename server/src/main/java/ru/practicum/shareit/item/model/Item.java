@@ -39,7 +39,8 @@ public class Item {
     /**
      * Link to another User's Item Request (if it was created)
      */
-    @OneToOne
+    @ToString.Exclude
+    @ManyToOne
     @JoinColumn(name = "request_id")
     ItemRequest request;
 }

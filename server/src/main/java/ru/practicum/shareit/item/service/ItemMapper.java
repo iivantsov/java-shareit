@@ -1,21 +1,26 @@
 package ru.practicum.shareit.item.service;
 
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.practicum.shareit.dto.item.ItemDto;
+import ru.practicum.shareit.dto.item.ItemResponseToRequestDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.dto.item.ItemSaveDto;
 
+import org.mapstruct.*;
+import ru.practicum.shareit.user.service.UserMapper;
+
 import java.util.Collection;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface ItemMapper {
 
     Item map(ItemSaveDto itemSaveDto);
 
     ItemDto map(Item item);
+
+    Collection<ItemResponseToRequestDto> mapToResponseToRequest(Collection<Item> items);
+
+    @Mapping(source = "owner", target = "ownerId", qualifiedByName = "userToId")
+    ItemResponseToRequestDto mapToResponseToRequest(Item item);
 
     Collection<ItemDto> map(Collection<Item> items);
 
