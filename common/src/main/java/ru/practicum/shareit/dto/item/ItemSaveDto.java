@@ -22,4 +22,6 @@ public class ItemSaveDto {
 
     @NotNull(groups = {CreateRequest.class})
     Boolean available;
+
+    Long requestId;
 }

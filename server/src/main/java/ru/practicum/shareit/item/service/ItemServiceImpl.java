@@ -13,6 +13,8 @@ import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.repository.CommentRepository;
 import ru.practicum.shareit.item.repository.ItemRepository;
+import ru.practicum.shareit.request.model.ItemRequest;
+import ru.practicum.shareit.request.repository.ItemRequestRepository;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
 public class ItemServiceImpl implements ItemService {
     private final UserRepository userRepo;
     private final ItemRepository itemRepo;
+    private final ItemRequestRepository itemRequestRepo;
     private final CommentRepository commentRepo;
     private final BookingRepository bookingRepo;
 
@@ -44,6 +47,12 @@ public class ItemServiceImpl implements ItemService {
         User owner = userRepo.findById(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
         Item item = itemMapper.map(itemSaveDto);
         item.setOwner(owner);
+        Long requestId = itemSaveDto.getRequestId();
+        if (requestId != null) {
+            ItemRequest itemRequest = itemRequestRepo.findById(requestId)
+                    .orElseThrow(() -> new NotFoundException(ItemRequest.class, requestId));
+            item.setRequest(itemRequest);
+        }
         Item savedItem = itemRepo.save(item);
 
         return itemMapper.map(savedItem);

@@ -10,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of = "id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

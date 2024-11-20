@@ -19,4 +19,9 @@ public interface UserMapper {
     static String userToName(User user) {
         return user.getName();
     }
+
+    @Named("userToId")
+    static long userToId(User user) {
+        return user.getId();
+    }
 }
