@@ -38,11 +38,4 @@ public class ServerExceptionHandler {
         log.error("not found exception - {} ({})", exception.getMessage(), exception.getStackTrace()[0].toString());
         return new ExceptionResponse(exception.getMessage());
     }
-
-    @ExceptionHandler(ConflictException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ExceptionResponse conflictExceptionHandler(ConflictException exception) {
-        log.error("conflict exception - {} ({})", exception.getMessage(), exception.getStackTrace()[0].toString());
-        return new ExceptionResponse(exception.getMessage());
-    }
 }
