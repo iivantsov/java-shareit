@@ -81,7 +81,7 @@ public class BookingServiceImpl implements BookingService {
     public Collection<BookingDto> getAllUserBookings(long userId, BookingState state) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(User.class, userId));
 
-        final Collection<Booking> bookings;
+        Collection<Booking> bookings = null;
         final LocalDateTime current = LocalDateTime.now();
         switch (state) {
             case WAITING -> {
@@ -101,9 +101,6 @@ public class BookingServiceImpl implements BookingService {
             }
             case ALL -> {
                 bookings = bookingRepository.findAllByBookerIdOrderByStartDesc(userId);
-            }
-            default -> {
-                throw new NotValidException(BookingState.class, "invalid");
             }
         }
 
