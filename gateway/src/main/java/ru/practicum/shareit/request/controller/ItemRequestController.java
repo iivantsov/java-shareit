@@ -10,11 +10,12 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping(path = ApiResourses.REQUESTS)
 @AllArgsConstructor
 @Validated

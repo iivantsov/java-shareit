@@ -10,11 +10,13 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping(path = ApiResourses.USERS)
 @AllArgsConstructor
 @Validated
@@ -38,7 +40,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable @NotNull Long userId) {
+    public ResponseEntity<Object> deleteUser(@PathVariable @NotNull Long userId) {
         userClient.deleteUser(userId);
+        return new ResponseEntity<Object>(HttpStatus.OK);
     }
 }

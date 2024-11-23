@@ -7,6 +7,7 @@ import ru.practicum.shareit.dto.booking.BookingSaveDto;
 import ru.practicum.shareit.dto.booking.BookingState;
 import ru.practicum.shareit.exception.NotValidException;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
+@Controller
 @RequestMapping(path = ApiResourses.BOOKINGS)
 @RequiredArgsConstructor
 @Validated
