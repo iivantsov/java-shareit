@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.controller;
 
-import org.springframework.stereotype.Controller;
 import ru.practicum.shareit.api.ApiResourses;
 import ru.practicum.shareit.api.CreateRequest;
 import ru.practicum.shareit.api.RequestHttpHeaders;
@@ -10,9 +9,11 @@ import ru.practicum.shareit.dto.item.ItemSaveDto;
 import ru.practicum.shareit.item.client.ItemClient;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Object> searchItems(@RequestParam @NotNull String text) {
+    public ResponseEntity<Object> searchItems(@RequestParam @NotBlank String text) {
         return itemClient.searchItems(text);
     }
 }
