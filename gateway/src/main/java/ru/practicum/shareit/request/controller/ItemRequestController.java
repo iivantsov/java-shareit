@@ -25,7 +25,7 @@ public class ItemRequestController {
      * Create a request for the new item by description
      */
     @PostMapping
-    public ResponseEntity<Object> createItemRequest(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId,
+    public ResponseEntity<Object> createItemRequest(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
                                                     @RequestBody @Valid ItemRequestSaveDto itemRequestSaveDto) {
         return itemRequestClient.createItemRequest(userId, itemRequestSaveDto);
     }
@@ -34,7 +34,7 @@ public class ItemRequestController {
      * Get all user's requests
      */
     @GetMapping
-    public ResponseEntity<Object> getAllUserItemRequest(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId) {
+    public ResponseEntity<Object> getAllUserItemRequest(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId) {
         return itemRequestClient.getAllUserItemRequest(userId);
     }
 

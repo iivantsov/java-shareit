@@ -29,7 +29,7 @@ public class BookingController {
 	 * Add new booking (any user)
 	 */
 	@PostMapping
-	public ResponseEntity<Object> addBooking(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId,
+	public ResponseEntity<Object> addBooking(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
 											 @RequestBody @Valid BookingSaveDto bookingSaveDto) {
 		return bookingClient.addBooking(userId, bookingSaveDto);
 	}
@@ -38,7 +38,7 @@ public class BookingController {
 	 * Approve or reject booking (only by owner)
 	 */
 	@PatchMapping("/{bookingId}")
-	public ResponseEntity<Object> manageBooking(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId,
+	public ResponseEntity<Object> manageBooking(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
 												@PathVariable @NotNull Long bookingId,
 												@RequestParam @NotNull Boolean approved) {
 		return bookingClient.manageBooking(userId, bookingId, approved);
@@ -48,7 +48,7 @@ public class BookingController {
 	 * Get particular booking (only by booking author or item owner)
 	 */
 	@GetMapping("/{bookingId}")
-	public ResponseEntity<Object> getBooking(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId,
+	public ResponseEntity<Object> getBooking(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
 											 @PathVariable @NotNull Long bookingId) {
 		return bookingClient.getBooking(userId, bookingId);
 	}
@@ -57,7 +57,7 @@ public class BookingController {
 	 * Get all bookings with required state for current user
 	 */
 	@GetMapping
-	public ResponseEntity<Object> getAllUserBookings(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId,
+	public ResponseEntity<Object> getAllUserBookings(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
 													 @RequestParam(defaultValue = "all") String state,
 													 @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
 													 @RequestParam(defaultValue = "10") @Positive Integer size) {
@@ -70,7 +70,7 @@ public class BookingController {
 	 * Get all bookings with required state for items of current user
 	 */
 	@GetMapping("/owner")
-	public ResponseEntity<Object> getAllUserItemsBookings(@RequestHeader(RequestHttpHeaders.USER_ID) @NotNull Long userId,
+	public ResponseEntity<Object> getAllUserItemsBookings(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
 														  @RequestParam(defaultValue = "all") String state) {
 		BookingState bookingState = BookingState.fromString(state)
 				.orElseThrow(() -> new NotValidException(BookingState.class, state + " not valid"));
