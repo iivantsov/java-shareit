@@ -49,6 +49,7 @@ ItemSaveDto {
     String name;
     String description;
     Boolean available;
+    Long requestId;
 }
 ```
 ```
@@ -77,7 +78,8 @@ CommentSaveDto {
 ```
 #### Endpoints
 
-1. **POST items/** _- Add item. User (with ID from request header) that adds item becomes item's owner_
+1. **POST items/** _- Add item. User (with ID from request header) that adds item becomes item's owner. To respond to
+particular item request user should additionally specify the requestId._
 2. **GET items/** _- Get all items (this feature is available only for owners)_
 3. **GET items/{itemId}** _- Get item by ID (this feature is available only for all users)_
 4. **GET /items/search?text={text}** _- Get all items available for share with name and description containing 
@@ -146,6 +148,38 @@ BookingState {
 5. **GET /bookings/owner?state={state}** _- Get a collection of bookings for all items of the current user 
 sorted by date from newest to oldest, 'state' parameter behave the same way as for endpoint 4_
 
+### requests
+
+---
+
+#### Headers
+
+- Request header (required)
+  - **X-Sharer-User-Id** _- user ID_
+- No custom response headers
+
+#### DTOs
+```
+ItemRequestSaveDto {
+    String description;
+}
+```
+```
+ItemRequestDto {
+    long id;
+    String description;
+    LocalDateTime created;
+    Collection<ItemResponseToRequestDto> items;
+}
+```
+#### Endpoints
+
+1. **POST /requests** _- Adds item request - just describe what is required_
+2. **GET /requests** _- Get all user's item requests with associated responses sorted from newest to oldest_
+3. **GET /requests/all** _- Get all item requests with associated responses sorted from newest to oldest. This endpoint 
+helps users view and respond to existing requests_
+4. **GET /requests/{requestId}** _- Get the particular item request with associated responses_
+
 ### Entity Relationship Diagram
 
 ![shareit-erd.png](shareit-erd.png)
@@ -160,3 +194,7 @@ sorted by date from newest to oldest, 'state' parameter behave the same way as f
 - App reworked to use JPA repository 
 - Added booking feature
 - Added comment feature for booked items
+- ### Version: 3.0
+- App refactored to Gateway and Server modules
+- Added request feature
+- Added tests
