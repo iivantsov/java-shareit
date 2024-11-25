@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
@@ -40,8 +39,8 @@ public class BookingController {
 	 */
 	@PatchMapping("/{bookingId}")
 	public ResponseEntity<Object> manageBooking(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
-												@PathVariable @NotNull Long bookingId,
-												@RequestParam @NotNull Boolean approved) {
+												@PathVariable Long bookingId,
+												@RequestParam Boolean approved) {
 		return bookingClient.manageBooking(userId, bookingId, approved);
 	}
 
@@ -50,7 +49,7 @@ public class BookingController {
 	 */
 	@GetMapping("/{bookingId}")
 	public ResponseEntity<Object> getBooking(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
-											 @PathVariable @NotNull Long bookingId) {
+											 @PathVariable Long bookingId) {
 		return bookingClient.getBooking(userId, bookingId);
 	}
 

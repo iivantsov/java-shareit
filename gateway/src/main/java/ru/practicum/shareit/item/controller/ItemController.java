@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = ApiResourses.ITEMS)
 @RequiredArgsConstructor
@@ -33,20 +35,20 @@ public class ItemController {
 
     @PostMapping("/{itemId}/comment")
     public ResponseEntity<Object> addComment(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
-                          @PathVariable @NotNull Long itemId,
-                          @RequestBody @Validated(CreateRequest.class) CommentSaveDto commentSaveDto) {
+                                             @PathVariable Long itemId,
+                                             @RequestBody @Validated(CreateRequest.class) CommentSaveDto commentSaveDto) {
         return itemClient.addComment(userId, itemId, commentSaveDto);
     }
 
     @PatchMapping("/{itemId}")
     public ResponseEntity<Object> updateItem(@RequestHeader(RequestHttpHeaders.USER_ID) Long userId,
-                       @PathVariable @NotNull Long itemId,
-                       @RequestBody @Validated(UpdateRequest.class) ItemSaveDto itemSaveDto) {
+                                             @PathVariable Long itemId,
+                                             @RequestBody @Validated(UpdateRequest.class) ItemSaveDto itemSaveDto) {
         return itemClient.updateItem(userId, itemId, itemSaveDto);
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<Object> getItem(@PathVariable @NotNull Long itemId) {
+    public ResponseEntity<Object> getItem(@PathVariable Long itemId) {
         return itemClient.getItem(itemId);
     }
 
@@ -55,8 +57,13 @@ public class ItemController {
         return itemClient.getAllOwnerItems(userId);
     }
 
+    /**
+     * @param text - pattern for searching among names or descriptions of existed items
+     * @return Collection of found items available for booking or empty list if the text parameter is blank
+     * or nothing was found
+     */
     @GetMapping("/search")
-    public ResponseEntity<Object> searchItems(@RequestParam @NotBlank String text) {
-        return itemClient.searchItems(text);
+    public ResponseEntity<Object> searchItems(@RequestParam String text) {
+        return text.isBlank() ? ResponseEntity.ok(List.of()) : itemClient.searchItems(text);
     }
 }
