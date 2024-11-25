@@ -6,8 +6,6 @@ import ru.practicum.shareit.api.UpdateRequest;
 import ru.practicum.shareit.dto.user.UserSaveDto;
 import ru.practicum.shareit.user.client.UserClient;
 
-import jakarta.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.HttpStatus;
