@@ -6,7 +6,6 @@ import ru.practicum.shareit.dto.request.ItemRequestSaveDto;
 import ru.practicum.shareit.request.client.ItemRequestClient;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 
@@ -51,7 +50,7 @@ public class ItemRequestController {
      * Get requests by id
      */
     @GetMapping("/{requestId}")
-    public ResponseEntity<Object> getItemRequest(@PathVariable @NotNull Long requestId) {
+    public ResponseEntity<Object> getItemRequest(@PathVariable Long requestId) {
         return itemRequestClient.getItemRequest(requestId);
     }
 }
