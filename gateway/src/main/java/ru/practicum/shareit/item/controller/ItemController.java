@@ -8,9 +8,6 @@ import ru.practicum.shareit.dto.item.CommentSaveDto;
 import ru.practicum.shareit.dto.item.ItemSaveDto;
 import ru.practicum.shareit.item.client.ItemClient;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotBlank;
-
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Controller;
